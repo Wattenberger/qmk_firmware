@@ -44,6 +44,10 @@ enum custom_keycodes {            // Make sure have the awesome keycode ready
   STACK,
   SLACK,
   CHROME,
+  LINEAR,
+  NOTES,
+  SPOTIFY,
+  ZOOM,
   TEXT_EDITOR
 };
 
@@ -54,79 +58,115 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         if (!is_alt_tab_active) {
           is_alt_tab_active = true;
-          register_code(KC_LALT);
+          register_code(KC_LCMD);
         }
         alt_tab_timer = timer_read();
-          register_code(KC_LALT);
+          register_code(KC_LCMD);
         register_code(KC_TAB);
       } else {
-          unregister_code(KC_LALT);
+          unregister_code(KC_LCMD);
         unregister_code(KC_TAB);
       }
       break;
     case UNDO:
       if (record->event.pressed) {
-        register_code(KC_LCTL);
+        register_code(KC_LCMD);
         register_code(KC_Z);
       } else {
-        unregister_code(KC_LCTL);
+        unregister_code(KC_LCMD);
         unregister_code(KC_Z);
       }
       break;
     case REDO:
       if (record->event.pressed) {
-        register_code(KC_LCTL);
+        register_code(KC_LCMD);
         register_code(KC_LSHIFT);
         register_code(KC_Z);
       } else {
-        unregister_code(KC_LCTL);
+        unregister_code(KC_LCMD);
         unregister_code(KC_LSHIFT);
         unregister_code(KC_Z);
       }
       break;
     case MAIL:
       if (record->event.pressed) {
-        register_code(KC_LGUI);
+        register_code(KC_LOPT);
         register_code(KC_1);
       } else {
-        unregister_code(KC_LGUI);
+        unregister_code(KC_LOPT);
         unregister_code(KC_1);
       }
       break;
     case STACK:
       if (record->event.pressed) {
-        register_code(KC_LGUI);
+        register_code(KC_LOPT);
         register_code(KC_2);
       } else {
-        unregister_code(KC_LGUI);
+        unregister_code(KC_LOPT);
         unregister_code(KC_2);
       }
       break;
-    case SLACK:
+    case LINEAR:
       if (record->event.pressed) {
-        register_code(KC_LGUI);
+        register_code(KC_LOPT);
         register_code(KC_3);
       } else {
-        unregister_code(KC_LGUI);
+        unregister_code(KC_LOPT);
         unregister_code(KC_3);
       }
       break;
     case CHROME:
       if (record->event.pressed) {
-        register_code(KC_LGUI);
-        register_code(KC_4);
+        register_code(KC_LOPT);
+        register_code(KC_Q);
       } else {
-        unregister_code(KC_LGUI);
-        unregister_code(KC_4);
+        unregister_code(KC_LOPT);
+        unregister_code(KC_Q);
       }
       break;
     case TEXT_EDITOR:
       if (record->event.pressed) {
-        register_code(KC_LGUI);
-        register_code(KC_5);
+        register_code(KC_LOPT);
+        register_code(KC_W);
       } else {
-        unregister_code(KC_LGUI);
-        unregister_code(KC_5);
+        unregister_code(KC_LOPT);
+        unregister_code(KC_W);
+      }
+      break;
+    case SLACK:
+      if (record->event.pressed) {
+        register_code(KC_LOPT);
+        register_code(KC_E);
+      } else {
+        unregister_code(KC_LOPT);
+        unregister_code(KC_E);
+      }
+      break;
+    case NOTES:
+      if (record->event.pressed) {
+        register_code(KC_LOPT);
+        register_code(KC_A);
+      } else {
+        unregister_code(KC_LOPT);
+        unregister_code(KC_A);
+      }
+      break;
+    case SPOTIFY:
+      if (record->event.pressed) {
+        register_code(KC_LOPT);
+        register_code(KC_S);
+      } else {
+        unregister_code(KC_LOPT);
+        unregister_code(KC_S);
+      }
+      break;
+    case ZOOM:
+      if (record->event.pressed) {
+        register_code(KC_LOPT);
+        register_code(KC_D);
+      } else {
+        unregister_code(KC_LOPT);
+        unregister_code(KC_D);
       }
       break;
   }
@@ -150,19 +190,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-------------------------------------------.                              ,-------------------------------------------.
  * |RAIS/ESC|   Q  |   W  |   E  |   R  |   T  |                              |   Y  |   U  |   I  |   O  |   P  |  | \   |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |LShift/BS |   A  |   S  |  D   |   F  |   G  |                              |   H  |   J  |   K  |   L  | ;  : |  ' "   |
+ * |LShift/BS | A  |   S  |  D   |   F  |   G   |                             |   H  |   J  |   K  |   L  | ;  : |  ' "   |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * | Ctrl |   Z  |   X  |   C  |   V  |   B  |alt+tab|undo|      |KC_PGUP|KC_PGDN|   N  |   M  | ,  < | . >  | /  ? |  - _   |
+ * | Ctrl/` |   Z  |   X  |   C  |   V  |   B  |alt+tab| undo|  |KC_PGUP|KC_PGDN|  N |   M  | ,  < | . >  | /  ? |  - _   |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        | GUI  | Del  | GUI  | Space| Alt  |  | Enter| Space| Tab  | Bksp | AltGr|
+ *                        | Ctrl | Opt  | GUI  | Space| Alt  |  | Enter| Space| Tab  | Bksp | AltGr|
  *                        |      |      | Alt  | Lower| Raise|  | Lower| Raise|      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [_QWERTY] = LAYOUT(
-      LT(_RAISE, KC_ESC),       KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                                         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_PIPE,
-      KC_LSHIFT,   KC_A,   KC_S,   KC_D,   KC_F,   KC_G,                                         KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-      LCTL_T(KC_GRV),               KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   ALT_TAB,   UNDO, KC_PGUP, KC_PGDN, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_MINS,
-              KC_LGUI, KC_DEL, KC_LGUI, LT(_LOWER, KC_SPC), LT(_RAISE, KC_TAB), LT(_LOWER, KC_ENT), LT(_RAISE, KC_SPC), KC_LALT,  KC_BSPC, KC_RALT
+      LT(_RAISE, KC_ESC), KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                                         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_PIPE,
+      KC_LSHIFT,          KC_A,   KC_S,   KC_D,   KC_F,   KC_G,                                         KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+      LCTL_T(KC_GRV),     KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   ALT_TAB,   UNDO, KC_PGUP, KC_PGDN, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_MINS,
+              KC_LCTL, KC_LOPT, KC_LGUI, LT(_LOWER, KC_SPC), LT(_RAISE, KC_TAB), LT(_LOWER, KC_ENT), LT(_RAISE, KC_SPC), KC_LALT,  KC_BSPC, KC_RALT
     ),
 /*
  * Lower Layer: Symbols
@@ -318,42 +358,102 @@ void oled_task_user(void) {
 }
 #endif
 
+uint8_t mod_state;
 #ifdef ENCODER_ENABLE
 void encoder_update_user(uint8_t index, bool clockwise) {
+    mod_state = get_mods();
+
     if (index == 0) {
         // Volume control
         if (clockwise) {
-          register_code(KC_LCTL);
-        register_code(KC_Z);
-        unregister_code(KC_LCTL);
-        unregister_code(KC_Z);
+            register_code(KC_LCMD);
+            register_code(KC_Z);
+            unregister_code(KC_LCMD);
+            unregister_code(KC_Z);
             // tap_code(UNDO);
         } else {
-          register_code(KC_LCTL);
-          register_code(KC_LSHIFT);
-        register_code(KC_Z);
-        unregister_code(KC_LCTL);
-        unregister_code(KC_LSHIFT);
-        unregister_code(KC_Z);
+            register_code(KC_LCMD);
+            register_code(KC_LSHIFT);
+            register_code(KC_Z);
+            unregister_code(KC_LCMD);
+            unregister_code(KC_LSHIFT);
+            unregister_code(KC_Z);
             // tap_code(REDO);
         }
     }
     else if (index == 1) {
-        // Page up/Page down
-        if (clockwise) {
-            // tap_code(KC_PGDN);
-            // tap_code(KC_MS_WH_DOWN);
-            tap_code(KC_MS_WH_DOWN);
-            tap_code(KC_MS_WH_DOWN);
-            tap_code(KC_MS_WH_DOWN);
-            tap_code(KC_MS_WH_DOWN);
+        if (get_mods() & MOD_MASK_ALT) {
+            del_mods(MOD_MASK_ALT);
+            if (clockwise) {
+                register_code(KC_LOPT);
+                tap_code(KC_LEFT);
+                unregister_code(KC_LOPT);
+            } else {
+                register_code(KC_LOPT);
+                tap_code(KC_RIGHT);
+                unregister_code(KC_LOPT);
+            }
+            set_mods(mod_state);
+        } else if (get_mods() & MOD_MASK_GUI) {
+            del_mods(MOD_MASK_GUI);
+            if (clockwise) {
+                tap_code(KC_LEFT);
+            } else {
+                tap_code(KC_RIGHT);
+            }
+            set_mods(mod_state);
+        } else if (biton32(layer_state) == 2) {
+            if (clockwise) {
+                // tap_code(KC_PGUP);
+                // tap_code(KC_WH_U);
+                tap_code(KC_UP);
+                tap_code(KC_UP);
+                tap_code(KC_UP);
+                tap_code(KC_UP);
+                tap_code(KC_UP);
+                tap_code(KC_UP);
+                tap_code(KC_UP);
+                tap_code(KC_UP);
+                tap_code(KC_UP);
+                tap_code(KC_UP);
+                tap_code(KC_UP);
+                tap_code(KC_UP);
+            } else {
+                // tap_code(KC_PGDN);
+                // tap_code(KC_WH_D);
+                tap_code(KC_DOWN);
+                tap_code(KC_DOWN);
+                tap_code(KC_DOWN);
+                tap_code(KC_DOWN);
+                tap_code(KC_DOWN);
+                tap_code(KC_DOWN);
+                tap_code(KC_DOWN);
+                tap_code(KC_DOWN);
+                tap_code(KC_DOWN);
+                tap_code(KC_DOWN);
+                tap_code(KC_DOWN);
+                tap_code(KC_DOWN);
+            }
+        } else if (biton32(layer_state) == 1) {
+            if (clockwise) {
+                register_code(KC_LSHIFT);
+                register_code(KC_LCTL);
+                tap_code(KC_RIGHT);
+                unregister_code(KC_LSHIFT);
+                unregister_code(KC_LCTL);
+            } else {
+                register_code(KC_LSHIFT);
+                register_code(KC_LCTL);
+                tap_code(KC_LEFT);
+                unregister_code(KC_LSHIFT);
+                unregister_code(KC_LCTL);
+            }
         } else {
-            // tap_code(KC_PGUP);
-            // tap_code(KC_MS_WH_UP);
-            tap_code(KC_MS_WH_UP);
-            tap_code(KC_MS_WH_UP);
-            tap_code(KC_MS_WH_UP);
-            tap_code(KC_MS_WH_UP);
+            if (clockwise) {
+                tap_code(KC_UP);
+            } else {
+                tap_code(KC_DOWN);
+            }
         }
     }
 }
